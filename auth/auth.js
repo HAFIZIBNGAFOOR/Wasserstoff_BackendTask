@@ -1,4 +1,4 @@
-import { jwtVerify } from "./jwt";
+import { jwtVerify } from "./jwt.js";
 
 const auth = (isAuthorised = true)=>
     (req,res,_next)=>{

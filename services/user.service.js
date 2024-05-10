@@ -59,3 +59,35 @@ export const doLogin = async ({
     const tokens = generateTokens({id:user._id,roleId:user.role})
     return tokens
 }
+
+export const blockOrUnblockUser=async({
+    body:{
+        userId
+    }
+})=>{
+    const user = await User.findById(userId)
+    if(!user) throw{
+        status:400,
+        message:'User doesnt exists'
+    }
+    if(user && user.isBlocked){
+        user.isBlocked = false
+    }else{
+        user.isBlocked = true
+    }
+    await user.save();
+    const users = await User.find();
+    return users
+}
+
+export const users = async()=>{
+    const users = await User.find();
+    if(users){
+        return users
+    }else{
+        throw {
+            status:400,
+            message:'No user exists'
+        }
+    }
+}

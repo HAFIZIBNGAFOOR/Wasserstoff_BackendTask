@@ -1,13 +1,14 @@
 
 import express, { Router } from 'express'
-import { doLogin, postUser } from '../services/user.service'
-import { controller } from '../controllers/common.controller'
+import { blockOrUnblockUser, doLogin, postUser, users } from '../services/user.service.js'
+import { controller } from '../controllers/common.controller.js'
 
 const userRouter = express.Router()
 
-userRouter.post('/auth',controller(doLogin))
+userRouter.post('/login',controller(doLogin))
 userRouter.post('/',controller(postUser))
-
+userRouter.post('/blockUnblock',controller(blockOrUnblockUser))
+userRouter.get('/users',controller(users))
 
 
 export default userRouter
